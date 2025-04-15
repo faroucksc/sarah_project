@@ -2,16 +2,20 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+
 class FlashcardBase(BaseModel):
     question: str
     answer: str
 
+
 class FlashcardCreate(FlashcardBase):
     pass
+
 
 class FlashcardUpdate(BaseModel):
     question: Optional[str] = None
     answer: Optional[str] = None
+
 
 class Flashcard(FlashcardBase):
     id: int
@@ -19,4 +23,4 @@ class Flashcard(FlashcardBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

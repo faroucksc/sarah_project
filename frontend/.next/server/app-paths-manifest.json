@@ -1,0 +1,9 @@
+{
+  "/not-found": "app/not-found.js",
+  "/dashboard/sets/page": "app/dashboard/sets/page.js",
+  "/dashboard/sets/[id]/page": "app/dashboard/sets/[id]/page.js",
+  "/dashboard/study/page": "app/dashboard/study/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js",
+  "/dashboard/study/session/[id]/page": "app/dashboard/study/session/[id]/page.js"
+}

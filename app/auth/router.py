@@ -73,6 +73,38 @@ def login_for_access_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
+@router.post("/login", response_model=schemas.Token)
+def login(user_data: dict, db: Session = Depends(get_db)):
+    """Login endpoint that matches the frontend's expectations."""
+    # Extract username and password from the request body
+    username = user_data.get("username")
+    password = user_data.get("password")
+
+    if not username or not password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username and password are required",
+        )
+
+    # Directly use the authenticate_user function
+    user = authenticate_user(db, username, password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    # Create access token
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+
+    # Return token
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
 @router.get("/me", response_model=schemas.User)
 def read_users_me(current_user: models.User = Depends(get_current_active_user)):
     """Get current user information."""

@@ -2,14 +2,18 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+
 class StudySessionBase(BaseModel):
     set_id: int
+
 
 class StudySessionCreate(StudySessionBase):
     pass
 
+
 class StudySessionUpdate(BaseModel):
     end_time: Optional[datetime] = None
+
 
 class StudySession(StudySessionBase):
     id: int
@@ -18,4 +22,4 @@ class StudySession(StudySessionBase):
     end_time: Optional[datetime] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True

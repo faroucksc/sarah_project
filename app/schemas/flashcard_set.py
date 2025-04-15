@@ -26,7 +26,7 @@ class FlashcardSet(FlashcardSetBase):
     source_document: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class FlashcardSetWithCards(FlashcardSet):

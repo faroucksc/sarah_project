@@ -21,6 +21,7 @@ python-docx
 # AI Integration
 google-generativeai
 pydantic
+pydantic[email]
 
 # Configuration
 python-dotenv
