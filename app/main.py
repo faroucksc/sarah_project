@@ -11,6 +11,7 @@ from .document.router import router as document_router
 from .ai.router import router as ai_router
 from .flashcards.router import router as flashcards_router
 from .study.router import router as study_router
+from .dashboard.router import router as dashboard_router
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -38,6 +39,7 @@ app.include_router(document_router, prefix="/api")
 app.include_router(ai_router, prefix="/api")
 app.include_router(flashcards_router, prefix="/api")
 app.include_router(study_router, prefix="/api")
+app.include_router(dashboard_router, prefix="/api")
 
 
 @app.get("/")

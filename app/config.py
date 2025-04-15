@@ -13,8 +13,9 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-for-development-only")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-# OpenAI configuration
+# AI configuration
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # File upload configuration
 UPLOAD_DIRECTORY = "uploads"
