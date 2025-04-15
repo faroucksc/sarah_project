@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { authAPI } from '@/services/api'
 
 export default function Register() {
   const [username, setUsername] = useState('')
@@ -26,19 +27,8 @@ export default function Register() {
     }
 
     try {
-      // This would be replaced with actual API call
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email, password }),
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.detail || 'Registration failed')
-      }
+      // Use the authAPI service
+      await authAPI.register(username, email, password)
 
       // Redirect to login page
       router.push('/login?registered=true')
@@ -77,7 +67,7 @@ export default function Register() {
               </div>
             </div>
           )}
-          
+
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">

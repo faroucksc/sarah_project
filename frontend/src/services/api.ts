@@ -40,6 +40,12 @@ export const authAPI = {
 
   getCurrentUser: () =>
     api.get('/auth/me'),
+
+  updateProfile: (data: { username?: string, email?: string }) =>
+    api.put('/auth/update-profile', data),
+
+  changePassword: (currentPassword: string, newPassword: string) =>
+    api.put('/auth/change-password', { current_password: currentPassword, new_password: newPassword }),
 };
 
 // Flashcard Sets API

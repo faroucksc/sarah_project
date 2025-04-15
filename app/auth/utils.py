@@ -25,12 +25,20 @@ def get_password_hash(password):
 
 
 def authenticate_user(db: Session, username: str, password: str):
-    """Authenticate a user by username and password."""
+    """Authenticate a user by username or email and password."""
+    # Try to find user by username
     user = models.User.get_by_username(db, username)
+
+    # If not found, try by email
+    if not user:
+        user = models.User.get_by_email(db, username)
+
     if not user:
         return None
+
     if not verify_password(password, user.hashed_password):
         return None
+
     return user
 
 

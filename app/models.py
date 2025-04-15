@@ -152,9 +152,10 @@ class StudySession(Base):
 
     def end_session(self, db):
         """End a study session."""
-        from datetime import datetime
+        from datetime import datetime, timezone
 
-        self.end_time = datetime.now()
+        # Use UTC time with timezone info to avoid timezone issues
+        self.end_time = datetime.now(timezone.utc)
         db.add(self)
         db.commit()
         db.refresh(self)

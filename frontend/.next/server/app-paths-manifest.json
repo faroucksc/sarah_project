@@ -1,9 +1,11 @@
 {
-  "/dashboard/stats/page": "app/dashboard/stats/page.js",
-  "/dashboard/upload/page": "app/dashboard/upload/page.js",
-  "/dashboard/sets/page": "app/dashboard/sets/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/api-docs/page": "app/api-docs/page.js",
+  "/db-explorer/page": "app/db-explorer/page.js",
   "/dashboard/study/page": "app/dashboard/study/page.js",
-  "/dashboard/sets/[id]/page": "app/dashboard/sets/[id]/page.js",
+  "/dashboard/sets/page": "app/dashboard/sets/page.js",
+  "/dashboard/stats/page": "app/dashboard/stats/page.js",
   "/dashboard/settings/page": "app/dashboard/settings/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }

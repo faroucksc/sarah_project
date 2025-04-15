@@ -31,7 +31,7 @@ export default function FlashcardSetsPage() {
         const setsData = response.data
 
         // For each set, get the cards to count them
-        const setsWithCardCounts = await Promise.all(setsData.map(async (set) => {
+        const setsWithCardCounts = await Promise.all(setsData.map(async (set: FlashcardSet) => {
           try {
             const cardsResponse = await flashcardsAPI.getCardsBySetId(set.id)
             return {

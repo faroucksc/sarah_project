@@ -3,7 +3,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
 # Database URL
-SQLALCHEMY_DATABASE_URL = "sqlite:///./flashcard_app.db"
+# Use data directory for Fly.io persistent volume
+data_dir = os.environ.get("FLY_APP") and "/app/data" or "."
+os.makedirs(data_dir, exist_ok=True)
+SQLALCHEMY_DATABASE_URL = f"sqlite:///{data_dir}/flashcard_app.db"
 
 # Create engine
 engine = create_engine(

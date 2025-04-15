@@ -109,3 +109,71 @@ def login(user_data: dict, db: Session = Depends(get_db)):
 def read_users_me(current_user: models.User = Depends(get_current_active_user)):
     """Get current user information."""
     return current_user
+
+
+@router.put("/update-profile", response_model=schemas.User)
+def update_user_profile(
+    user_data: schemas.UserUpdate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_active_user),
+):
+    """Update user profile information."""
+    # Check if username is being updated and is already taken
+    if user_data.username and user_data.username != current_user.username:
+        db_user = models.User.get_by_username(db, username=user_data.username)
+        if db_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Username already registered",
+            )
+        current_user.username = user_data.username
+
+    # Check if email is being updated and is already taken
+    if user_data.email and user_data.email != current_user.email:
+        db_user = models.User.get_by_email(db, email=user_data.email)
+        if db_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email already registered",
+            )
+        current_user.email = user_data.email
+
+    # Password update is handled in a separate endpoint
+
+    # Save changes
+    db.add(current_user)
+    db.commit()
+    db.refresh(current_user)
+
+    return current_user
+
+
+@router.put("/change-password")
+def change_password(
+    password_data: dict,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_active_user),
+):
+    """Change user password."""
+    # Verify current password
+    current_password = password_data.get("current_password")
+    new_password = password_data.get("new_password")
+
+    if not current_password or not new_password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Current password and new password are required",
+        )
+
+    if not verify_password(current_password, current_user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Incorrect current password",
+        )
+
+    # Update password
+    current_user.hashed_password = get_password_hash(new_password)
+    db.add(current_user)
+    db.commit()
+
+    return {"message": "Password updated successfully"}

@@ -21,7 +21,9 @@ def start_study_session(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_active_user),
 ):
-    """Start a new study session."""
+    """Start a new study session with consistent timezone handling."""
+    from datetime import timezone
+
     # Get flashcard set by ID and check if user has access
     flashcard_set = (
         db.query(models.FlashcardSet)

@@ -1,4 +1,4 @@
-// File: /Users/sosany/Documents/dev/elixir/app-tests/oscinato-rigore/experiments/sarah/frontend/src/app/dashboard/stats/page.tsx
+// File: /app/src/app/dashboard/stats/page.tsx
 import * as entry from '../../../../../src/app/dashboard/stats/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
